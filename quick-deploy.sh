@@ -1,36 +1,35 @@
 #!/bin/bash
-# 飞书机器人一键部署脚本
-# 使用方法：chmod +x quick-deploy.sh && ./quick-deploy.sh
+# miniyum-Lark 一键部署脚本
+# 使用方法：bash quick-deploy.sh
+
+set -e
 
 echo "=========================================="
-echo "  飞书机器人一键部署脚本"
+echo "  miniyum-Lark 一键部署脚本"
 echo "=========================================="
 echo ""
 
-# 1. 克隆或更新代码
-echo "📦 步骤 1/5: 获取最新代码..."
+# 1. 准备目录和代码
+echo "📦 步骤 1/5: 准备代码..."
 cd ~
-if [ -d "miniyu" ]; then
-  echo "项目已存在，更新代码..."
-  cd miniyu
-  git fetch origin
-  git checkout feature/optima-real-estate-ai
-  git pull origin feature/optima-real-estate-ai
-else
-  echo "克隆新项目..."
-  git clone https://github.com/wojiushiwo7008/miniyu.git
-  cd miniyu
-  git checkout feature/optima-real-estate-ai
-fi
+rm -rf miniyum-lark
+mkdir -p miniyum-lark
+cd miniyum-lark
+
+# 使用wget下载代码
+wget -q -O master.tar.gz https://github.com/bxn818204/miniyum-Lark/archive/refs/heads/master.tar.gz
+tar -xzf master.tar.gz
+mv miniyum-Lark-master/* .
+rm -rf miniyum-Lark-master master.tar.gz
+echo "✓ 代码准备完成"
 
 # 2. 配置环境变量
 echo ""
 echo "⚙️  步骤 2/5: 配置环境变量..."
 cat > .env << 'EOF'
-FEISHU_APP_ID=cli_a92eb7bf7d22dbd3
-FEISHU_APP_SECRET=7n8j6zlj2MEqYJRFKaCNLdzC6xkUnKEc
-DEEPSEEK_API_KEY=sk-93a526f81c5a4ab9ae22f0fa33071b35
-CLAUDE_API_KEY=sk-qB2fhoAQqIfFx2I2Gplcw0wo9w9l6nzwOpTRaEhRG0ua1NU4
+FEISHU_APP_ID=cli_a911153c86789ed0
+FEISHU_APP_SECRET=8OUmPXW0dL2xEjSEbNu5iduwLuQGxNdA
+DEEPSEEK_API_KEY=sk-48a337fe74bb4aa989ca369171598e69
 PORT=3001
 EOF
 echo "✓ 环境变量配置完成"
